@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+	default-lazy-init="false">
+
+	<bean id="baseRemoteService" factory-bean="rmiRemoteServiceFactory"
+		factory-method="createRemoteService" abstract="true" />
+	
+	<bean id="rmiRemoteServiceFactory" class="com.travelsky.rmilbclient.RmiServiceFactory">
+		<property name="regBaseUrls">
+			<list>
+				<value>rmi://localhost:8098</value>
+				<value>rmi://localhost:8099</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="CalculatorService" parent="baseRemoteService">
+		<constructor-arg value="calculator.CalculatorService" />
+		<constructor-arg value="CalculatorRMIService" />
+	</bean>
+
+
+</beans>

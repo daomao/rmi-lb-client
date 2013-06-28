@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+	default-lazy-init="false">
+
+	<bean id="CalculatorService" class="org.googlecode.rmilbclient.RmiProxyFactoryBean">
+		<property name="config">
+			<bean class="com.travelsky.rmilbclient.RmiLbServiceConfig">
+				<!-- ServiceUrls -->
+				<property name="serviceUrls">
+					<list>
+						<value>rmi://localhost:8098/CalculatorService</value>
+						<value>rmi://localhost:8099/CalculatorService</value>
+					</list>
+				</property>
+				<!-- service interface -->
+				<property name="serviceInterface" value="calculator.CalculatorService" />
+				<!-- Lookup stub on startup? -->
+				<property name="lookupStubOnStartup" value="false" />
+				<!-- Stub Status Monitor Period -->
+				<property name="monitorPeriod" value="600" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="CalculatorService" class="org.googlecode.rmilbclient.RmiProxyFactoryBean">
+		<property name="config">
+			<bean class="com.travelsky.rmilbclient.RmiLbServiceConfig">
+				<!-- ServiceUrls -->
+				<property name="serviceUrls">
+					<list>
+						<value>rmi://localhost:8098/CalculatorService</value>
+						<value>rmi://localhost:8099/CalculatorService</value>
+					</list>
+				</property>
+				<!-- service interface -->
+				<property name="serviceInterface" value="calculator.CalculatorService" />
+				<!-- Lookup stub on startup? -->
+				<property name="lookupStubOnStartup" value="false" />
+				<!-- Stub Status Monitor Period -->
+				<property name="monitorPeriod" value="600" />
+				<!-- timeout 保证服务调用在指定的时间返回，如果没有，抛出RmiInvokeTimeoutException -->
+				<property name="timeout" value="200" />
+
+			</bean>
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+	default-lazy-init="false">
+      
+    <bean id="CalculatorRmiService" class="calculator.CalculatorServiceImpl">  
+    </bean>  
+    <bean id="baseServiceExporter" class="org.springframework.remoting.rmi.RmiServiceExporter">  
+        <!-- 调用Service -->  
+        <property name="service" ref="CalculatorRmiService"></property>  
+        <!-- value值是给用户调用 -->  
+        <property name="serviceName" value="CalculatorService"></property>  
+        <!-- service 接口 -->  
+        <property name="serviceInterface" value="calculator.CalculatorService"></property>  
+        <!-- 注册端口号 -->  
+        <property name="registryPort" value="8098"></property>  
+    </bean>  
+	
+</beans>

@@ -1,4 +1,4 @@
-Project Summary
+Project Summary:
 This project try to solve RMI load balancing and failover from client; This rmi client is based on spring rmi client;
 
 Support loadbalancing , the default strategy is random. In the future,it will support round-robin,weighted round-robin, weighted random.

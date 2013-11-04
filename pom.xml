@@ -3,25 +3,21 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.googlecode</groupId>
 	<artifactId>rmi-lb-client</artifactId>
-	<version>3.2.0</version>
+	<version>3.3.0</version>
 	<name>rmi-lb-client</name>
 	
-	<distributionManagement>
-		<repository>
-			<id>releases</id>
-			<name>Team Nexus Release Repository</name>
-			<url>http://172.22.12.200:8081/nexus/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>Team Nexus Snapshot Repository</name>
-			<url>http://172.22.12.200:8081/nexus/content/repositories/snapshots/</url>
-			<uniqueVersion>false</uniqueVersion>
-		</snapshotRepository>
-	</distributionManagement>
+<distributionManagement>
+    <repository>
+        <id>github</id>
+        <name>GitHub ${project.artifactId} Repository</name>
+        <url>https://raw.github.com/daomao/${project.artifactId}/mvn-repo</url>
+    </repository>
+ </distributionManagement>
+
 
 	<properties>
 		<spring.version>[2.5.6,)</spring.version>
+		<github.global.server>github</github.global.server>
 	</properties>
 
 	<dependencies>
@@ -77,6 +73,38 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
+	<plugin>
+    <artifactId>maven-deploy-plugin</artifactId>
+    <version>2.7</version>
+    <configuration>
+        <altDeploymentRepository>internal.repo::default::file://F:/git_project/mvn-repo/releases</altDeploymentRepository>
+    </configuration>
+</plugin>
+			<plugin>
+            <groupId>com.github.github</groupId>
+            <artifactId>site-maven-plugin</artifactId>
+            <version>0.7</version>
+            <configuration>
+                <message>Maven artifacts for ${project.version}</message>  <!-- git commit message -->
+                <noJekyll>true</noJekyll>                                  <!-- disable webpage processing -->
+                <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory> <!-- matches distribution management repository url above -->
+                <branch>refs/heads/mvn-repo</branch>                       <!-- remote branch name -->
+                <includes><include>**/*</include></includes>
+                <server>github</server>
+                <repositoryName>github</repositoryName>      <!-- github repo name -->
+                <repositoryOwner>daomao</repositoryOwner>    <!-- github username  -->
+            </configuration>
+            <executions>
+              <!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
+              <execution>
+                <goals>
+                  <goal>site</goal>
+                </goals>
+                <phase>site</phase>
+              </execution>
+            </executions>
+        </plugin>
+
 		</plugins>
 	</build>
 

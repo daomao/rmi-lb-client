@@ -86,7 +86,7 @@ public class RmiProxy implements InvocationHandler {
 	private Object handleRemoteConnectFailure(Method m, Object[] args,
 			Throwable ex) throws Throwable {
 		if (logger.isDebugEnabled())
-			logger.debug("Could not connect to RMI service - retrying", ex);
+			logger.debug("Could not connect to RMI service - retrying");
 		getStubMgr().updateStubsStatus();
 		return doInvoke(m, args);
 	}
